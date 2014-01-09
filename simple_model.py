@@ -1,14 +1,13 @@
-from simple_python_comp_model import CompUtils
-
 __author__ = 'sujeet'
 
+import CompUtils
 import openpyxl
 from openpyxl_helpers import *
 import numpy
 from openpyxl.style import NumberFormat
 
 # Open workbook
-wb = openpyxl.load_workbook('/home/sujeet/Desktop/plan_modeling.xlsx')
+wb = openpyxl.load_workbook('plan_modeling.xlsx')
 
 # Read plan parameters
 payout_table_range = read_table_from_named_range(wb,'PayoutTable')
@@ -49,4 +48,4 @@ create_distribution_table(output_ws,'E1',earnings,number_format=NumberFormat.FOR
 create_stats_table(output_ws,'I1',earnings,number_format=NumberFormat.FORMAT_CURRENCY_USD_SIMPLE)
 
 # Write the output to a new file
-wb.save(filename='/home/sujeet/Desktop/plan_modeling_simulated.xlsx')
+wb.save(filename='plan_modeling_simulated.xlsx')
