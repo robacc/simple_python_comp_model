@@ -46,7 +46,7 @@ write_list_of_values(output_ws,'C1',list(earnings),'Earnings',number_format=Numb
 create_distribution_table(output_ws,'E1',earnings,number_format=NumberFormat.FORMAT_CURRENCY_USD_SIMPLE)
 
 # Create a Stats Table
-#create_stats_table(output_ws,'I1',earnings,number_format=NumberFormat.FORMAT_CURRENCY_USD_SIMPLE)
+create_stats_table(output_ws,'I1',earnings,number_format=NumberFormat.FORMAT_CURRENCY_USD_SIMPLE)
 
 # Write the output to a new file
 wb.save(filename='/home/sujeet/Desktop/plan_modeling_simulated.xlsx')

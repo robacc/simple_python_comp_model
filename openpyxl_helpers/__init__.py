@@ -71,10 +71,18 @@ def create_stats_table(worksheet, starting_range, value,number_format=NumberForm
 		{'label':'Max','func':numpy.max},
 		{'label':'Min','func':numpy.min},
 		{'label':'10th Percentile','func':partial(numpy.percentile,q=10)},
-		{'label':'25th Percentile','func':partial(numpy.percentile,q=10)},
-		{'label':'50th Percentile','func':partial(numpy.percentile,q=10)},
-		{'label':'75th Percentile','func':partial(numpy.percentile,q=10)},
-		{'label':'90th Percentile','func':partial(numpy.percentile,q=10)},
-		{'label':'90th over 10th Percentile','func':lambda x: numpy.percentile(x,q=90)/numpy.percentile(x,q=10),'format':NumberFormat.FORMAT_GENERAL},
+		{'label':'25th Percentile','func':partial(numpy.percentile,q=25)},
+		{'label':'50th Percentile','func':partial(numpy.percentile,q=50)},
+		{'label':'75th Percentile','func':partial(numpy.percentile,q=75)},
+		{'label':'90th Percentile','func':partial(numpy.percentile,q=90)},
+		{'label':'90th over 10th Percentile','func':lambda x: numpy.percentile(x,q=90)/numpy.percentile(x,q=10),'format':NumberFormat.FORMAT_NUMBER_00},
 		{'label':'What % of total payout does top 10% reps take home','func':lambda x: numpy.sum(x[x>numpy.percentile(x,q=90)])/numpy.sum(x),'format': NumberFormat.FORMAT_PERCENTAGE_00},
 	]
+
+	i=0
+	for f in functions:
+		worksheet.cell(next_range).offset(i,0).value = f['label']
+		worksheet.cell(next_range).offset(i,0).style.alignment.horizontal = 'right'
+		worksheet.cell(next_range).offset(i,1).value = f['func'](value)
+		worksheet.cell(next_range).offset(i,1).style.number_format.format_code= f['format'] if 'format' in f else number_format
+		i = i + 1
